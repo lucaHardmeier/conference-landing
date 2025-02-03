@@ -1,9 +1,16 @@
-import { ComponentType, Dispatch, SetStateAction } from 'react'
+import { ComponentType, Dispatch, SetStateAction } from "react"
 
-export interface ProductImg {
-  imageUrl: string
-  imageId: string
-  imageText: string
+export interface ConferenceProps {
+  name: string
+  description: string
+  date: string
+  themesLists: [
+    {
+      img: string
+      alt: string
+      ticketColor: string
+    }
+  ]
 }
 
 export interface Product {
