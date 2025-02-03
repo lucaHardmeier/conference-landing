@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "lib": ["es2017", "dom", "es2018.promise", "esnext.asynciterable", "es2021"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "resolveJsonModule": true
+  },
+  "typeAcquisition": {
+    "enable": false
+  },
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "exclude": ["node_modules"]
+}

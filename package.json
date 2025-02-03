@@ -1,0 +1,32 @@
+{
+  "name": "custom-app-template",
+  "version": "0.0.1",
+  "description": "Template for custom applications with VTEX IO.",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "type": "vtex setup --typings",
+    "conf": "yarn add -D typescript @biomejs/biome",
+    "setup": "yarn conf && yarn type",
+    "format": "yarn biome format ./react --write",
+    "format:json": "yarn biome format ./store --write --json"
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx,json}": [
+      "yarn format"
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.1.1",
+    "typescript": "^5.5.4"
+  },
+  "intl-equalizer": {
+    "referenceLocale": "es",
+    "localeDirectory": "messages"
+  },
+  "dependencies": {
+    "@vtex/css-handles": "^1.1.3"
+  }
+}

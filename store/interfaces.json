@@ -1,0 +1,6 @@
+{
+  "ticket-landing": {
+    "component": "TicketLanding",
+    "render": "lazy"
+  }
+}
