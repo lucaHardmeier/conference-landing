@@ -1,1 +1,15 @@
-export const HANDLES = ["digitalMagazine"] as const
+export const HANDLES = [
+  "conferenceLanding",
+  "ticketContainer",
+  "ticketNumberContainer",
+  "ticketMainContent",
+  "ticketLeftContent",
+  "ticketRightContent",
+  "ticket",
+  "confInfo",
+  "confTitle",
+  "confPrice",
+  "sponsorsContainer",
+  "sponsorLogo",
+  "dateContainer",
+] as const

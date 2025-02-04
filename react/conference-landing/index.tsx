@@ -1,16 +1,29 @@
+import { useCallback } from "react"
 import { HANDLES } from "./handles"
-import type { ConferenceProps } from "./interface"
+import type { ConferenceProps, Sponsor, Theme } from "./interface"
 import { useCssHandles } from "vtex.css-handles"
+import AnimatedText from "./Components/AnimatedText"
+import Ticket from "./Components/Ticket"
 
 const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
   name,
   description,
   date,
-  themesLists,
-}: ConferenceProps) => {
+  themesList = [] as Theme[],
+  sponsorsList = [] as Sponsor[],
+  HeroTitle,
+}) => {
   const { handles: css } = useCssHandles(HANDLES)
+  const MemoizedTitleComponent = useCallback(HeroTitle, [])
 
-  return <div></div>
+  return (
+    <div className={css.conferenceLanding}>
+      <MemoizedTitleComponent />
+      <HeroTitle />
+      <AnimatedText text={description} />
+      <Ticket name={name} date={date} sponsorsList={sponsorsList} themesList={themesList} />
+    </div>
+  )
 }
 
 export default ConferenceLanding
@@ -19,9 +32,15 @@ ConferenceLanding.defaultProps = {
   name: "CRUCEConf",
   description: "Disfrutá de increíbles charlas con expertos de la industria, sorteos",
   date: "",
-  themesLists: [
+  sponsorList: [
     {
-      img: "6053",
+      img: "",
+      alt: "Vtex",
+    },
+  ],
+  themesList: [
+    {
+      img: "",
       alt: "React",
       ticketColor: "",
     },
@@ -52,6 +71,29 @@ ConferenceLanding.schema = {
         "ui:widget": "datetime",
       },
     },
+    sponsorsList: {
+      title: "Lista de sponsors",
+      type: "array",
+      default: [],
+      items: {
+        type: "object",
+        title: "Sponsor",
+        properties: {
+          alt: {
+            type: "string",
+            title: "Nombre",
+            default: "React",
+          },
+          img: {
+            type: "string",
+            title: "Logo",
+            widget: {
+              "ui:widget": "image-uploader",
+            },
+          },
+        },
+      },
+    },
     themesList: {
       title: "Lista de temas",
       type: "array",
@@ -62,7 +104,7 @@ ConferenceLanding.schema = {
         properties: {
           img: {
             type: "string",
-            title: "Imágendel ticket",
+            title: "Imágen del ticket",
             widget: {
               "ui:widget": "image-uploader",
             },

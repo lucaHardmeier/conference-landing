@@ -1,6 +1,6 @@
 import { useCssHandles } from "vtex.css-handles"
 
-const WhatsappIcon = () => {
+const CruceLogo = () => {
   const { handles: css } = useCssHandles(["tiketIcon"])
 
   return (
@@ -44,4 +44,4 @@ const WhatsappIcon = () => {
     </svg>
   )
 }
-export default WhatsappIcon
+export default CruceLogo

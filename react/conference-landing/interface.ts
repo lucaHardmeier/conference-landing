@@ -1,12 +1,22 @@
-export interface ConferenceProps {
+import { ComponentType } from "react"
+
+export interface Sponsor {
+  img: string
+  alt: string
+}
+export interface Theme {
+  img: string
+  alt: string
+}
+
+export interface TicketProps {
   name: string
-  description: string
   date: string
-  themesLists: [
-    {
-      img: string
-      alt: string
-      ticketColor: string
-    }
-  ]
+  sponsorsList: Sponsor[]
+  themesList: Theme[]
+}
+
+export interface ConferenceProps extends TicketProps {
+  description: string
+  HeroTitle?: ComponentType
 }
