@@ -19,7 +19,6 @@ const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
   return (
     <div className={css.conferenceLanding}>
       <MemoizedTitleComponent />
-      <HeroTitle />
       <AnimatedText text={description} />
       <Ticket name={name} date={date} sponsorsList={sponsorsList} themesList={themesList} />
     </div>
@@ -30,9 +29,10 @@ export default ConferenceLanding
 
 ConferenceLanding.defaultProps = {
   name: "CRUCEConf",
-  description: "Disfrutá de increíbles charlas con expertos de la industria, sorteos",
+  description:
+    "Disfrutá de increíbles charlas con expertos de la industria, sorteos exclusivos y una experiencia llena de innovación e inspiración  🚀",
   date: "",
-  sponsorList: [
+  sponsorsList: [
     {
       img: "",
       alt: "Vtex",

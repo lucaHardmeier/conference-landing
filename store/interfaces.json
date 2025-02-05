@@ -1,6 +1,5 @@
 {
   "ticket-landing": {
-    "component": "TicketLanding",
-    "render": "lazy"
+    "component": "ConferenceLanding"
   }
 }

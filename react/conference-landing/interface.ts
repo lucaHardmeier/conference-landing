@@ -7,6 +7,7 @@ export interface Sponsor {
 export interface Theme {
   img: string
   alt: string
+  ticketColor: string
 }
 
 export interface TicketProps {
