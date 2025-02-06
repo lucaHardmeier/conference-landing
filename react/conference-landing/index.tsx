@@ -4,6 +4,7 @@ import type { ConferenceProps, Sponsor, Theme } from "./interface"
 import { useCssHandles } from "vtex.css-handles"
 import AnimatedText from "./Components/AnimatedText"
 import Ticket from "./Components/Ticket"
+import StarsGenerator from "./Components/StarsGenerator"
 
 const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
   name,
@@ -18,6 +19,7 @@ const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
 
   return (
     <div className={css.conferenceLanding}>
+      <StarsGenerator amount={100} />
       <MemoizedTitleComponent />
       <AnimatedText text={description} />
       <Ticket name={name} date={date} sponsorsList={sponsorsList} themesList={themesList} />
@@ -42,7 +44,7 @@ ConferenceLanding.defaultProps = {
     {
       img: "",
       alt: "React",
-      ticketColor: "",
+      ticketColor: "#c1c1c1",
     },
   ],
 }
@@ -62,7 +64,8 @@ ConferenceLanding.schema = {
       widget: {
         "ui:widget": "textarea",
       },
-      default: "Disfrutá de increíbles charlas con expertos de la industria, sorteos",
+      default:
+        "Disfrutá de increíbles charlas con expertos de la industria, sorteos exclusivos y una experiencia llena de innovación e inspiración  🚀",
     },
     date: {
       title: "Fecha de la conferencia",
@@ -82,7 +85,7 @@ ConferenceLanding.schema = {
           alt: {
             type: "string",
             title: "Nombre",
-            default: "React",
+            default: "Vtex",
           },
           img: {
             type: "string",

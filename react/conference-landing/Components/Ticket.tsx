@@ -5,6 +5,7 @@ import CruceLogo from "../../assets/CruceLogo"
 import { useEffect, useRef, useState } from "react"
 import { useOrderForm } from "vtex.order-manager/OrderForm"
 import type { OrderForm as OrderFormType } from "vtex.checkout-graphql"
+import UserIcon from "../../assets/UserIcon"
 
 const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, themesList }) => {
   const { handles: css } = useCssHandles(HANDLES)
@@ -18,7 +19,7 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
     if (index < themesList.length) {
       timeout = setTimeout(() => {
         setIndex(prevIndex => prevIndex + 1)
-      }, 4000)
+      }, 6000)
     } else {
       setIndex(0)
     }
@@ -33,50 +34,76 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
     const halfHeight = ticketRef.current.offsetHeight / 2
     const rotationX = ((offsetX - halfWidth) / halfWidth) * 10
     const rotationY = ((offsetY - halfHeight) / halfHeight) * 10
-    console.log("mouseover", { offsetX, offsetY, halfHeight, halfWidth, rotationX })
     ticketRef.current.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`
+  }
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ticketRef) return
+    ticketRef.current.style.transform = "rotateX(0deg) rotateY(0deg)"
   }
 
   const { orderForm } = useOrderForm()
-  const { clientProfileData } = orderForm as OrderFormType
+  const { clientProfileData, userProfileId } = orderForm as OrderFormType
+
+  const currentTheme = themesList[index]
+  const currentColor = currentTheme?.ticketColor || null
+  const transparentColor = currentColor ? currentColor + "55" : null
 
   return (
     <div
       className={css.ticketContainer}
       ref={ticketRef}
       onMouseMove={handleMouseMove}
-      style={{ backgroundColor: themesList[index] ? themesList[index].ticketColor : "" }}
+      onMouseLeave={handleMouseLeave}
+      style={{ backgroundColor: transparentColor }}
     >
-      <div className={css.ticket}>
-        <div className={css.ticketNumberContainer}>#110799</div>
-        <div className={css.ticketMainContent}>
-          {themesList[index] ? <img src={themesList[index].img} alt={themesList[index].alt} /> : <></>}
-          <div className={css.ticketLeftContent}>
+      <div className={`flex h-100 ${css.ticket}`}>
+        <div
+          className={`flex justify-center items-center ${css.ticketNumberContainer}`}
+          style={{ backgroundColor: currentColor, borderColor: transparentColor }}
+        >
+          #{userProfileId?.slice(-6)}
+        </div>
+        <div
+          className={`flex justify-between relative ${css.ticketMainContent}`}
+          style={{ backgroundColor: currentColor }}
+        >
+          {currentTheme ? (
+            <img src={currentTheme.img} alt={currentTheme.alt} className={`absolute ${css.themeLogo}`} />
+          ) : (
+            <></>
+          )}
+          <div className={`flex flex-column justify-between ${css.ticketLeftContent}`}>
             <div className={css.confInfo}>
-              <h4 className={css.confTitle}>{name}</h4>
+              <h4 className={css.confTitle}>#{name}</h4>
               <div className={css.confPrice}>Evento gratuito</div>
             </div>
             {sponsorsList.length ? (
               <div className={css.sponsorsContainer}>
-                <div>Gracias a:</div>
-                {sponsorsList.map(sponsor => (
-                  <img
-                    src={sponsor.img}
-                    alt={sponsor.alt}
-                    title={sponsor.alt}
-                    key={sponsor.img}
-                    className={css.sponsorLogo}
-                  />
-                ))}
+                <div className={css.sponsorsLabel}>Gracias a:</div>
+                <div className={css.sponsorsLogos}>
+                  {sponsorsList.map(sponsor => (
+                    <img
+                      src={sponsor.img}
+                      alt={sponsor.alt}
+                      title={sponsor.alt}
+                      key={sponsor.img}
+                      className={css.sponsorLogo}
+                    />
+                  ))}
+                </div>
               </div>
             ) : (
               <></>
             )}
           </div>
-          <div className={css.ticketRightContent}>
+          <div className={`flex flex-column justify-between items-end ${css.ticketRightContent}`}>
             <CruceLogo />
             <div className={css.dateContainer}>{date}</div>
-            {clientProfileData?.email && <div>{clientProfileData.email}</div>}
+            {clientProfileData?.email && (
+              <div className={css.emailContainer}>
+                <UserIcon /> {clientProfileData.email}
+              </div>
+            )}
           </div>
         </div>
       </div>

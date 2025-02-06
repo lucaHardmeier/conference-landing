@@ -10,24 +10,25 @@ const AnimatedText: VTEXCustomComponent<{ text: string }> = ({ text }) => {
   useEffect(() => {
     let timeout
 
-    if (currentIndex <= text.length) {
+    if (currentIndex < text.length) {
       timeout = setTimeout(() => {
         setCurrentText(prevText => prevText + text[currentIndex])
         setCurrentIndex(prevIndex => prevIndex + 1)
-      }, 100)
+      }, 70)
     } else {
       setCursor(true)
       timeout = setTimeout(() => {
         setCurrentIndex(0)
         setCurrentText("")
-      }, 5000)
+        setCursor(false)
+      }, 6000)
     }
 
     return () => clearTimeout(timeout)
   }, [currentIndex, text])
 
   return (
-    <h3 className={css.animatedText}>
+    <h3 className={`ml-auto mr-auto ${css.animatedText}`}>
       {currentText} {cursor && <strong className={css.cursor}>|</strong>}
     </h3>
   )
