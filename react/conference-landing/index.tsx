@@ -1,9 +1,8 @@
 import { useCallback } from "react"
-import { HANDLES } from "./handles"
 import type { ConferenceProps, Sponsor, Theme } from "./interface"
 import { useCssHandles } from "vtex.css-handles"
 import AnimatedText from "./Components/AnimatedText"
-import Ticket from "./Components/Ticket"
+import Ticket from "./Components/Ticket/Ticket"
 import StarsGenerator from "./Components/StarsGenerator"
 
 const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
@@ -14,7 +13,7 @@ const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
   sponsorsList = [] as Sponsor[],
   HeroTitle,
 }) => {
-  const { handles: css } = useCssHandles(HANDLES)
+  const { handles: css } = useCssHandles(["conferenceLanding"])
   const MemoizedTitleComponent = useCallback(HeroTitle, [])
 
   return (

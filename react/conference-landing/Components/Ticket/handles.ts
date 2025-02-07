@@ -1,5 +1,4 @@
 export const HANDLES = [
-  "conferenceLanding",
   "ticketContainer",
   "ticketNumberContainer",
   "ticketNumber",
