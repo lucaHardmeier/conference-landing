@@ -10,7 +10,6 @@ const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => 
   useEffect(() => {
     let starsBundle = []
     for (let i = 0; i < amount; i++) {
-      console.log("entra")
       const dimensions = getRandomNumber(3)
       starsBundle.push({
         width: dimensions,
@@ -22,8 +21,6 @@ const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => 
     }
     setStars(starsBundle)
   }, [amount])
-
-  console.log("starsBundle", stars)
 
   return (
     <div className={css.starsGenerator}>

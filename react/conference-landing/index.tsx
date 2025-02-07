@@ -32,7 +32,6 @@ ConferenceLanding.defaultProps = {
   name: "CRUCEConf",
   description:
     "Disfrutá de increíbles charlas con expertos de la industria, sorteos exclusivos y una experiencia llena de innovación e inspiración  🚀",
-  date: "",
   sponsorsList: [
     {
       img: "",

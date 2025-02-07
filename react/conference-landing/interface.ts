@@ -12,7 +12,7 @@ export interface Theme {
 
 export interface TicketProps {
   name: string
-  date: string
+  date?: Date
   sponsorsList: Sponsor[]
   themesList: Theme[]
 }

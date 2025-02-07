@@ -15,5 +15,7 @@ export const HANDLES = [
   "sponsorsLogos",
   "sponsorLogo",
   "dateContainer",
+  "confDate",
+  "confTime",
   "emailContainer",
 ] as const

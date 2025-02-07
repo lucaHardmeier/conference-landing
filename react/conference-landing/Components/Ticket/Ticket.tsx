@@ -32,6 +32,11 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
   }, [index, themesList])
 
   const currentTheme = themesList[index]
+  const confDate = date && new Date(date)
+  const formattedDate =
+    confDate && confDate.toLocaleDateString("es-AR", { year: "numeric", month: "long", day: "numeric" })
+  const formattedTime =
+    confDate && confDate.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false })
 
   return (
     <TicketWrapper ticketColor={currentTheme?.ticketColor}>
@@ -51,7 +56,14 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
         </div>
         <div className={`flex flex-column justify-between items-end ${css.ticketRightContent}`}>
           <CruceLogo />
-          <div className={css.dateContainer}>{date}</div>
+          {date ? (
+            <div className={css.dateContainer}>
+              <div className={css.confDate}>{formattedDate.replace(/de/g, "")}</div>
+              <div className={css.confTime}>{formattedTime}</div>
+            </div>
+          ) : (
+            <></>
+          )}
           {clientProfileData?.email && (
             <div className={css.emailContainer}>
               <UserIcon /> {clientProfileData.email}
