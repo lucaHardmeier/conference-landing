@@ -47,6 +47,9 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
   const currentTheme = themesList[index]
   const currentColor = currentTheme?.ticketColor || null
   const transparentColor = currentColor ? currentColor + "55" : null
+  const gradientColor = currentColor
+    ? `linear-gradient(35deg, ${currentColor}44 0%, ${currentColor}f4 50%, ${currentColor}74 100%)`
+    : null
 
   return (
     <div
@@ -54,19 +57,13 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
       ref={ticketRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ backgroundColor: transparentColor }}
+      style={{ background: transparentColor }}
     >
-      <div className={`flex h-100 ${css.ticket}`}>
-        <div
-          className={`flex justify-center items-center ${css.ticketNumberContainer}`}
-          style={{ backgroundColor: currentColor, borderColor: transparentColor }}
-        >
+      <div className={`flex h-100 ${css.ticket}`} style={{ background: gradientColor }}>
+        <div className={`flex justify-center items-center ${css.ticketNumberContainer}`}>
           #{userProfileId?.slice(-6)}
         </div>
-        <div
-          className={`flex justify-between relative ${css.ticketMainContent}`}
-          style={{ backgroundColor: currentColor }}
-        >
+        <div className={`flex justify-between relative ${css.ticketMainContent}`}>
           {currentTheme ? (
             <img src={currentTheme.img} alt={currentTheme.alt} className={`absolute ${css.themeLogo}`} />
           ) : (
