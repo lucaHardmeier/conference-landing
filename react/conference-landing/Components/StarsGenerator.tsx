@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useCssHandles } from "vtex.css-handles"
 
 const getRandomNumber = maxNum => Math.random() * (maxNum + 1)
@@ -6,6 +6,7 @@ const getRandomNumber = maxNum => Math.random() * (maxNum + 1)
 const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => {
   const { handles: css } = useCssHandles(["starsGenerator", "starsContainer", "star"])
   const [stars, setStars] = useState([])
+  const animationFrameRef = useRef(null)
 
   useEffect(() => {
     let starsBundle = []
@@ -21,6 +22,27 @@ const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => 
     }
     setStars(starsBundle)
   }, [amount])
+
+  const moveStars = () => {
+    setStars(prevStars =>
+      prevStars.map(star => {
+        if (star.left < 0 - star.width) {
+          return {
+            ...star,
+            left: 101,
+            top: getRandomNumber(100),
+          }
+        }
+        return { ...star, left: star.left - star.opacity / 3 }
+      })
+    )
+    animationFrameRef.current = requestAnimationFrame(moveStars)
+  }
+
+  useEffect(() => {
+    animationFrameRef.current = requestAnimationFrame(moveStars)
+    return () => cancelAnimationFrame(animationFrameRef.current)
+  }, [])
 
   return (
     <div className={css.starsGenerator}>

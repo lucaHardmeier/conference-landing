@@ -19,5 +19,6 @@ export interface TicketProps {
 
 export interface ConferenceProps extends TicketProps {
   description: string
+  Login?: ComponentType
   HeroTitle?: ComponentType
 }

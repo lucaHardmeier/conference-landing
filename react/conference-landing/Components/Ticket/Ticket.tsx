@@ -3,18 +3,17 @@ import { HANDLES } from "./handles"
 
 import { useEffect, useState } from "react"
 import type { TicketProps } from "../../interface"
-import type { OrderForm as OrderFormType } from "vtex.checkout-graphql"
-import { useOrderForm } from "vtex.order-manager/OrderForm"
 import CruceLogo from "../../../assets/CruceLogo"
 import UserIcon from "../../../assets/UserIcon"
 import TicketWrapper from "./TicketWrapper"
 import SponsorsList from "./SponsorsList"
-
+import { useRenderSession } from "vtex.session-client"
 const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, themesList }) => {
   const { handles: css } = useCssHandles(HANDLES)
   const [index, setIndex] = useState(0)
-  const { orderForm } = useOrderForm()
-  const { clientProfileData, userProfileId } = orderForm as OrderFormType
+  const { loading, session, error } = useRenderSession()
+
+  console.log("session", { loading, session, error })
 
   useEffect(() => {
     if (themesList.length <= 1) return
@@ -38,9 +37,12 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
   const formattedTime =
     confDate && confDate.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false })
 
+  // @ts-ignore
+  const ticketId = loading || error ? "------" : session.id?.slice(-6)
+
   return (
     <TicketWrapper ticketColor={currentTheme?.ticketColor}>
-      <div className={`flex justify-center items-center ${css.ticketNumberContainer}`}>#{userProfileId?.slice(-6)}</div>
+      <div className={`flex justify-center items-center ${css.ticketNumberContainer}`}>#{ticketId}</div>
       <div className={`flex justify-between relative ${css.ticketMainContent}`}>
         {currentTheme ? (
           <img src={currentTheme.img} alt={currentTheme.alt} className={`absolute ${css.themeLogo}`} />
@@ -64,10 +66,13 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
           ) : (
             <></>
           )}
-          {clientProfileData?.email && (
+          {loading || error ? (
             <div className={css.emailContainer}>
-              <UserIcon /> {clientProfileData.email}
+              {/* @ts-ignore */}
+              <UserIcon /> {session?.namespaces?.profile?.email}
             </div>
+          ) : (
+            <></>
           )}
         </div>
       </div>

@@ -18,7 +18,8 @@
     "vtex.search-graphql": "0.x",
     "vtex.store-graphql": "2.x",
     "vtex.styleguide": "9.x",
-    "vtex.checkout-graphql": "0.x"
+    "vtex.checkout-graphql": "0.x",
+    "vtex.session-client": "1.x"
   },
   "peerDependencies": {
     "vtex.wish-list": "1.x"

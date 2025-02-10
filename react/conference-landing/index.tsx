@@ -11,14 +11,17 @@ const ConferenceLanding: VTEXCustomComponent<ConferenceProps> = ({
   date,
   themesList = [] as Theme[],
   sponsorsList = [] as Sponsor[],
+  Login,
   HeroTitle,
 }) => {
   const { handles: css } = useCssHandles(["conferenceLanding"])
+  const MemoizedLoginComponent = useCallback(Login, [])
   const MemoizedTitleComponent = useCallback(HeroTitle, [])
 
   return (
     <div className={css.conferenceLanding}>
       <StarsGenerator amount={100} />
+      <MemoizedLoginComponent />
       <MemoizedTitleComponent />
       <AnimatedText text={description} />
       <Ticket name={name} date={date} sponsorsList={sponsorsList} themesList={themesList} />
