@@ -38,7 +38,7 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
     confDate && confDate.toLocaleTimeString("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false })
 
   // @ts-ignore
-  const ticketId = loading || error ? "------" : session.id?.slice(-6)
+  const ticketId = loading || error ? "------" : session.namespaces.profile.id?.value?.slice(-6)
 
   return (
     <TicketWrapper ticketColor={currentTheme?.ticketColor}>
@@ -67,12 +67,12 @@ const Ticket: VTEXCustomComponent<TicketProps> = ({ date, name, sponsorsList, th
             <></>
           )}
           {loading || error ? (
+            <></>
+          ) : (
             <div className={css.emailContainer}>
               {/* @ts-ignore */}
-              <UserIcon /> {session?.namespaces?.profile?.email}
+              <UserIcon /> {session?.namespaces?.profile?.email?.value}
             </div>
-          ) : (
-            <></>
           )}
         </div>
       </div>
