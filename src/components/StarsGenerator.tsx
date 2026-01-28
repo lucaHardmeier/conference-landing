@@ -1,15 +1,21 @@
-import { useEffect, useRef, useState } from "react"
-import { useCssHandles } from "vtex.css-handles"
+import { useEffect, useRef, useState, type FC } from "react"
 
-const getRandomNumber = maxNum => Math.random() * (maxNum + 1)
+const getRandomNumber = (maxNum: number) => Math.random() * (maxNum + 1)
 
-const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => {
-  const { handles: css } = useCssHandles(["starsGenerator", "starsContainer", "star"])
-  const [stars, setStars] = useState([])
-  const animationFrameRef = useRef(null)
+interface Stars {
+  width: number
+  height: number
+  opacity: number
+  top: number
+  left: number
+}
+
+const StarsGenerator: FC<{ amount: number }> = ({ amount }) => {
+  const [stars, setStars] = useState<Stars[]>([])
+  const animationFrameRef = useRef<number | null>(null)
 
   useEffect(() => {
-    let starsBundle = []
+    let starsBundle = [] as Stars[]
     for (let i = 0; i < amount; i++) {
       const dimensions = getRandomNumber(3)
       starsBundle.push({
@@ -24,8 +30,8 @@ const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => 
   }, [amount])
 
   const moveStars = () => {
-    setStars(prevStars =>
-      prevStars.map(star => {
+    setStars((prevStars) =>
+      prevStars.map((star) => {
         if (star.left < 0 - star.width) {
           return {
             ...star,
@@ -34,21 +40,23 @@ const StarsGenerator: VTEXCustomComponent<{ amount: number }> = ({ amount }) => 
           }
         }
         return { ...star, left: star.left - star.opacity / 3 }
-      })
+      }),
     )
     animationFrameRef.current = requestAnimationFrame(moveStars)
   }
 
   useEffect(() => {
     animationFrameRef.current = requestAnimationFrame(moveStars)
-    return () => cancelAnimationFrame(animationFrameRef.current)
+    return () => {
+      if (animationFrameRef?.current) cancelAnimationFrame(animationFrameRef.current)
+    }
   }, [])
 
   return (
-    <div className={css.starsGenerator}>
-      <div className={css.starsContainer}>
+    <div className={"starsGenerator"}>
+      <div className={"starsContainer"}>
         {stars.map(({ width, height, opacity, top, left }) => (
-          <div className={css.star} style={{ width, height, opacity, top: `${top}%`, left: `${left}%` }}></div>
+          <div className={"star"} style={{ width, height, opacity, top: `${top}%`, left: `${left}%` }}></div>
         ))}
       </div>
     </div>
