@@ -1,92 +1,73 @@
-# Challenge: Ticket 3D CRUCEConf
+# React + TypeScript + Vite
 
-### [Workspace del desafío](https://lucachallenge--cruce.myvtex.com/cruce-conf)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Objetivo
+Currently, two official plugins are available:
 
-Desarrollar un componente de Ticket interactivo con efecto 3D para la CRUCEConf 2025, implementando animaciones avanzadas y aprovechando las funcionalidades de VTEX IO.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-**Referencia de diseño**: https://www.figma.com/proto/VQF9v2l5UkUAoeuxydoDrq/Eventos-%2F-Post
-**Referencia de animación**: https://www.miduconf.com/
+## React Compiler
 
-## Stack
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- VTEX IO
-- React
-- TypeScript
-- CSS Vanilla (CSS Modules / CSS Handles)
-- Tachyons (opcional, recomendado para optimización)
+## Expanding the ESLint configuration
 
-## Requisitos
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-**Componente Base**
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-- Crear custom app en VTEX IO
-- Implementar CSS Handles para permitir customización
-- Consumir contexto de usuario (requiere login)
-- Manejo de estados loading/error
-- Implementar persistencia de datos
-- Efecto typewriting para textos
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-**Animación y Estilos**
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-- Efecto 3D en hover/interacción
-- Desarrollar animaciones con CSS vanilla (no se permiten librerías de animación)
-- Implementar transiciones suaves
-- Layout responsive
-- Cumplir diseño provisto en Figma
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-**Site Editor**
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-- Textos editables:
-- Título del evento
-- Subtítulo/descripción
-- Fecha y hora
-- Información adicional
-- Configuración de logos/sponsors
-
-**Experiencia de Usuario**
-
-- Validación de usuario autenticado
-- Manejo de rutas y navegación
-- Adaptación a diferentes dispositivos
-- Optimización de performance
-
-## Bonus
-
-- Estilos mayormente en Tachyons
-- Uso de Slots de VTEX IO para contenido dinámico
-- Feature extra a consideración del dev
-
-## Evaluación
-
-**Se valorará**
-
-- Cumplimiento de requisitos básicos al 100%
-- Calidad y optimización del CSS
-- Mantenibilidad y organización del proyecto
-- Autonomía en la resolución de problemas
-- Calidad y semántica de los commits -> https://www.conventionalcommits.org/en/v1.0.0/
-
-**Documentación Requerida**
-
-- README con instrucciones de uso (alineado con los Componentes de CRUCE)
-- Estructura del proyecto
-- Dependencias utilizadas (cuanto menos, mejor)
-- Guía de customización vía Site Editor
-- Documentación de CSS Handles
-- Decisiones técnicas relevantes
-
-## Entrega
-
-- Repositorio: https://gitlab.e-cruce.com/cruce-team/cruce/frontend/capacitaciones/challenge02-conference-ticket
-- Crear rama con formato: nombre-apellido
-- Workspace de desarrollo en VTEX IO (nombre y apellido todo junto, ejemplo: `ivanvera`)
-- Fecha límite: Viernes 7
-
-### Devs
-
-- Luca Hardmeier: https://app.clickup.com/t/86b3tdnmj
-- Lucas Angiorama: https://app.clickup.com/t/86b3tdp5d
-
-¡A codear! 🎫 ✨
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

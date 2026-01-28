@@ -1,5 +1,3 @@
-import { ComponentType } from "react"
-
 export interface Sponsor {
   img: string
   alt: string
@@ -19,6 +17,4 @@ export interface TicketProps {
 
 export interface ConferenceProps extends TicketProps {
   description: string
-  Login?: ComponentType
-  HeroTitle?: ComponentType
 }

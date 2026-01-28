@@ -1,13 +1,13 @@
-import React, { useRef } from "react"
-import { useCssHandles } from "vtex.css-handles"
-import { HANDLES } from "./handles"
+import React, { useRef, type FC, type ReactNode } from "react"
 
-const TicketWrapper = ({ ticketColor, children }) => {
-  const { handles: css } = useCssHandles(HANDLES)
+const TicketWrapper: FC<{ ticketColor: string; children: ReactNode }> = ({
+  ticketColor,
+  children,
+}) => {
   const ticketRef: React.Ref<HTMLDivElement> = useRef(null)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ticketRef) return
+    if (!ticketRef?.current) return
     const { offsetX, offsetY } = e.nativeEvent
     const halfWidth = ticketRef.current.offsetWidth / 2
     const halfHeight = ticketRef.current.offsetHeight / 2
@@ -16,7 +16,7 @@ const TicketWrapper = ({ ticketColor, children }) => {
     ticketRef.current.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`
   }
   const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ticketRef) return
+    if (!ticketRef?.current) return
     ticketRef.current.style.transform = "rotateX(0deg) rotateY(0deg)"
   }
 
@@ -28,13 +28,16 @@ const TicketWrapper = ({ ticketColor, children }) => {
 
   return (
     <div
-      className={css.ticketContainer}
+      className={"ticketContainer"}
       ref={ticketRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ background: transparentColor }}
+      style={{ background: transparentColor || "transparent" }}
     >
-      <div className={`flex h-100 ${css.ticket}`} style={{ background: gradientColor }}>
+      <div
+        className={`flex h-100 ${"ticket"}`}
+        style={{ background: gradientColor || "transparent" }}
+      >
         {children}
       </div>
     </div>
