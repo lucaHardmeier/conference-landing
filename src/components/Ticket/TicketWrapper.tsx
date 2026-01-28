@@ -1,9 +1,6 @@
 import React, { useRef, type FC, type ReactNode } from "react"
 
-const TicketWrapper: FC<{ ticketColor: string; children: ReactNode }> = ({
-  ticketColor,
-  children,
-}) => {
+const TicketWrapper: FC<{ ticketColor: string; children: ReactNode }> = ({ ticketColor, children }) => {
   const ticketRef: React.Ref<HTMLDivElement> = useRef(null)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -15,7 +12,7 @@ const TicketWrapper: FC<{ ticketColor: string; children: ReactNode }> = ({
     const rotationY = ((offsetY - halfHeight) / halfHeight) * 10
     ticketRef.current.style.transform = `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`
   }
-  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseLeave = () => {
     if (!ticketRef?.current) return
     ticketRef.current.style.transform = "rotateX(0deg) rotateY(0deg)"
   }
@@ -28,16 +25,13 @@ const TicketWrapper: FC<{ ticketColor: string; children: ReactNode }> = ({
 
   return (
     <div
-      className={"ticketContainer"}
+      className="ticketContainer"
       ref={ticketRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ background: transparentColor || "transparent" }}
     >
-      <div
-        className={`flex h-100 ${"ticket"}`}
-        style={{ background: gradientColor || "transparent" }}
-      >
+      <div className={"flex h-100 ticket"} style={{ background: gradientColor || "transparent" }}>
         {children}
       </div>
     </div>

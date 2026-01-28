@@ -44,39 +44,21 @@ const Ticket: FC<TicketProps> = ({ date, name, sponsorsList, themesList }) => {
 
   return (
     <TicketWrapper ticketColor={currentTheme?.ticketColor}>
-      <div
-        className={`flex justify-center items-center ${"ticketNumberContainer"}`}
-      >
-        #{ticketId}
-      </div>
-      <div className={`flex justify-between relative ${"ticketMainContent"}`}>
-        {currentTheme ? (
-          <img
-            src={currentTheme.img}
-            alt={currentTheme.alt}
-            className={`absolute ${"themeLogo"}`}
-          />
-        ) : (
-          <></>
-        )}
-        <div
-          className={`flex flex-column justify-between ${"ticketLeftContent"}`}
-        >
+      <div className="flex justify-center items-center ticketNumberContainer">#{ticketId}</div>
+      <div className="flex justify-between relative ticketMainContent">
+        {currentTheme ? <img src={currentTheme.img} alt={currentTheme.alt} className="absolute themeLogo" /> : <></>}
+        <div className="flex flex-column justify-between ticketLeftContent">
           <div className={"confInfo"}>
             <h4 className={"confTitle"}>#{name}</h4>
             <div className={"confPrice"}>Evento gratuito</div>
           </div>
           <SponsorsList sponsorsList={sponsorsList} />
         </div>
-        <div
-          className={`flex flex-column justify-between items-end ${"ticketRightContent"}`}
-        >
+        <div className="flex flex-column justify-between items-end ticketRightContent">
           <CruceLogo />
           {date ? (
             <div className={"dateContainer"}>
-              <div className={"confDate"}>
-                {formattedDate?.replace(/de/g, "")}
-              </div>
+              <div className={"confDate"}>{formattedDate?.replace(/de/g, "")}</div>
               <div className={"confTime"}>{formattedTime}</div>
             </div>
           ) : (

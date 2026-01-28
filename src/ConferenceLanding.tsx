@@ -22,15 +22,10 @@ const ConferenceLanding = () => {
   const date = new Date()
 
   return (
-    <div className="">
+    <div className="conferenceLanding">
       <StarsGenerator amount={100} />
       <AnimatedText text={description} />
-      <Ticket
-        name={name}
-        date={date}
-        sponsorsList={sponsorsList}
-        themesList={themesList}
-      />
+      <Ticket name={name} date={date} sponsorsList={sponsorsList} themesList={themesList} />
     </div>
   )
 }

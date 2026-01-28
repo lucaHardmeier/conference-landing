@@ -53,8 +53,8 @@ const StarsGenerator: FC<{ amount: number }> = ({ amount }) => {
   }, [])
 
   return (
-    <div className={"starsGenerator"}>
-      <div className={"starsContainer"}>
+    <div className="starsGenerator">
+      <div className="starsContainer">
         {stars.map(({ width, height, opacity, top, left }) => (
           <div className={"star"} style={{ width, height, opacity, top: `${top}%`, left: `${left}%` }}></div>
         ))}

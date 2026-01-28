@@ -26,8 +26,8 @@ const AnimatedText: FC<{ text: string }> = ({ text }) => {
   }, [currentIndex, text])
 
   return (
-    <h3 className={`ml-auto mr-auto ${"animatedText"}`}>
-      {currentText} {cursor && <strong className={"cursor"}>|</strong>}
+    <h3 className="ml-auto mr-auto animatedText">
+      {currentText} {cursor && <strong className="cursor">|</strong>}
     </h3>
   )
 }
